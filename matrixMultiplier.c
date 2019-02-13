@@ -65,8 +65,6 @@ int main(int argc, char **argv){
   struct Matrix *matrixA, *matrixB, *matrixResult;
   pid_t pid;
 
-  // start clock to calculate how long the actual multiplication takes
-  clock_t begin = clock();
 
   // First we must assign shared memory for all of the matrices
   // allocate shared memory and return id
@@ -101,8 +99,11 @@ int main(int argc, char **argv){
   printMatrix(matrixA);
   printf("and Matrix B:\n");
   printMatrix(matrixB);
+  printf("Using %d processes\n\n", PROCESSES);
 
 
+  // start clock to calculate how long the actual multiplication takes
+  clock_t begin = clock();
   // i will be a counter for each of the child processes
   int i;
   // status is used to monitor whether or not all child processes have exited
