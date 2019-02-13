@@ -40,7 +40,7 @@ void printMatrix(struct Matrix *matrix){
   int i, j;
   for(i=0; i<matrix->rows; i++){
     for(j=0; j<matrix->columns; j++){
-      printf("%d ", getIndex(matrix, i, j));
+      printf("%d\t", getIndex(matrix, i, j));
     }
     printf("\n");
   }
