@@ -22,7 +22,7 @@ int getIndex(struct Matrix *matrix, int row, int column){
   // then get value
   // release semaphore?
   // release value
-  //
+  // 
   // For now all we do is return the value
   return (matrix -> values)[row][column];
 }
@@ -44,5 +44,5 @@ void printMatrix(struct Matrix *matrix){
     }
     printf("\n");
   }
-  printf("\n\n");
+  printf("\n");
 }

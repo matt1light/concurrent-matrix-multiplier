@@ -19,19 +19,6 @@
 // the number of columns in matrix b, will be the number of columns in the result
 #define B_COLUMNS 4
 
-// declaring prototypes
-int getValue(int row, int column);
-void calculateRow(struct Matrix *matrixA, struct Matrix *matrixB, struct Matrix *matrixResult, int row);
-void calculateRows(struct Matrix *matrixA, struct Matrix *matrixB, struct Matrix *matrixResult, int row, int num_processes, int num_rows);
-
-
-// struct to hold the matrices that we will be operating on
-struct MatrixCollection {
-  struct Matrix matrixA;
-  struct Matrix matrixB;
-  struct Matrix matrixResult;
-};
-
 // initialize array a
 int matrix_a_array[A_ROWS][A_COLUMNS_B_ROWS]  = {
   {1, 2, 3, 4},
@@ -47,6 +34,20 @@ int matrix_b_array[A_COLUMNS_B_ROWS][B_COLUMNS]  = {
   {7, 3, 5, 7},
   {8, 6, 4, 2}
 };
+
+// declaring prototypes
+int getValue(int row, int column);
+void calculateRow(struct Matrix *matrixA, struct Matrix *matrixB, struct Matrix *matrixResult, int row);
+void calculateRows(struct Matrix *matrixA, struct Matrix *matrixB, struct Matrix *matrixResult, int row, int num_processes, int num_rows);
+
+
+// struct to hold the matrices that we will be operating on
+struct MatrixCollection {
+  struct Matrix matrixA;
+  struct Matrix matrixB;
+  struct Matrix matrixResult;
+};
+
 
 // initialize results matrix
 int matrix_result_array[A_ROWS][B_COLUMNS];
@@ -90,7 +91,7 @@ int main(int argc, char **argv){
   matrixB = &(matrices -> matrixB);
   matrixResult = &(matrices -> matrixResult);
 
-  //fill each matrix with the default values
+  // fill each matrix with the default values
   fillMatrix(matrixResult, matrix_result_array);
   fillMatrix(matrixA, matrix_a_array);
   fillMatrix(matrixB, matrix_b_array);
@@ -103,6 +104,8 @@ int main(int argc, char **argv){
 
 
   // start clock to calculate how long the actual multiplication takes
+  // We don't care about how only care about how long the concurrent portion
+  // of the program takes to execute
   clock_t begin = clock();
   // i will be a counter for each of the child processes
   int i;
@@ -118,7 +121,7 @@ int main(int argc, char **argv){
         // TODO this one is for task 2
         // child process will calculate the values for certain rows in the results matrix
         calculateRows(matrixA, matrixB, matrixResult, i, PROCESSES, A_ROWS);
-        //TODO end
+        // TODO end
         // TODO this one is for task 1
         // child process will calculate the values for one row in the results matrix
         // calculateRow(matrixA, matrixB, matrixResult, i);
