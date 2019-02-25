@@ -8,10 +8,8 @@
 #include <stdio.h>
 #include <time.h>
 
-//TODO this is in the first version
 // the number of processes that should be used to execute do the matrix multiplication
-//#define PROCESSES 4
-//TODO end
+#define PROCESSES 4
 // the number of rows in matrix a, will be the number of rows in the result
 #define A_ROWS 4
 // the number of columns in matrix a and number of rows in matrix b: must be the same for multiplication
@@ -53,13 +51,6 @@ struct MatrixCollection {
 int matrix_result_array[A_ROWS][B_COLUMNS];
 
 int main(int argc, char **argv){
-  //TODO this is in the second version
-  if(!argv[1]){
-    printf("An argument specifying the number of processes assigned to solving the matrix is required");
-    exit(0);
-  }
-  int PROCESSES = atoi(argv[1]);
-  // TODO end
   int shmid;
   void *shared_memory = (void *)0;
   struct MatrixCollection *matrices;
@@ -118,14 +109,8 @@ int main(int argc, char **argv){
     // switch to separate child and parent behavior
     switch(pid){
       case 0:
-        // TODO this one is for task 2
-        // child process will calculate the values for certain rows in the results matrix
-        calculateRows(matrixA, matrixB, matrixResult, i, PROCESSES, A_ROWS);
-        // TODO end
-        // TODO this one is for task 1
         // child process will calculate the values for one row in the results matrix
-        // calculateRow(matrixA, matrixB, matrixResult, i);
-        // TODO end
+         calculateRow(matrixA, matrixB, matrixResult, i);
         // exit child
         exit(0);
       default:
@@ -165,12 +150,6 @@ int main(int argc, char **argv){
  * @param *resultMatrix
  * @param *row
  */
-void calculateRows(struct Matrix *matrixA, struct Matrix *matrixB, struct Matrix *matrixResult, int process, int num_processes, int num_rows){
-  int i;
-  for (i=0; i<num_rows; i+=num_processes){
-    calculateRow(matrixA, matrixB, matrixResult, i);
-  }
-}
 
 void calculateRow(struct Matrix *matrixA, struct Matrix *matrixB, struct Matrix *matrixResult, int row){
   int i, j, k;
