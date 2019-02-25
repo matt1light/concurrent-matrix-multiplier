@@ -4,7 +4,6 @@
 #define ROWS 4
 #define COLUMNS 4
 // matrix constructorish
-// TODO is this reference right?
 void fillMatrix(struct Matrix *matrix, int matrix_array[ROWS][COLUMNS]){
   matrix -> rows = ROWS ;
   matrix -> columns = COLUMNS;
